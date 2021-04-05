@@ -17,7 +17,7 @@ classdef ModelPID
             obj.tauI = (c1/c0) - obj.tauF;
             obj.Kc = obj.tauI*obj.tauF*c0;
             obj.tauD = (c2*obj.tauI*obj.tauF - obj.Kc*obj.tauI*obj.tauF)/(obj.Kc*obj.tauI);
-            obj.Cs= tf([obj.Kc*obj.tauI obj.Kc], [obj.tauI 0]);
+            obj.Cs= tf([obj.tauD obj.Kc obj.Kc/obj.tauI], [1 0]);
             obj.Fds= tf([obj.Kc*obj.tauD 0], [obj.tauF 1]);
             obj.P = obj.Kc;
             obj.I = obj.Kc/obj.tauI;

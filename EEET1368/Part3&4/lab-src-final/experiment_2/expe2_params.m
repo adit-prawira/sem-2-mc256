@@ -14,7 +14,7 @@ transfer_func = tf(10, [10 1]);
 
 % Case C
 damp_coeff3 = 0.707;
-wn3 = 0.6;
+wn3 = 0.5;
 case_c = ModelPID(a1, a2, b0, b1, damp_coeff3, wn3, lambda);
 
 

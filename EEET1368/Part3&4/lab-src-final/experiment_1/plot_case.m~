@@ -27,4 +27,3 @@ function plot_case(Data, case_label)
     legend('Reference Signals', 'Control Signals', 'Output Signals');
     grid on;
 end
-
