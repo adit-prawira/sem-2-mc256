@@ -4,10 +4,12 @@ function plot_case(Data, case_label)
     control_signals = transpose(Data.signals.values(:, 2));
     output_signals = transpose(Data.signals.values(:, 3));
     error_signals = transpose(Data.signals.values(:, 4));
+    squared_errors = error_signals.^2;
+   
     t = transpose(Data.time);
     size = length(output_signals);
     for i = 1: size
-        sum = sum + error_signals(i)^2;
+        sum = sum + squared_errors(i);
     end
     
     fprintf("Case %s: Sum of squared errors = %f\n", case_label, sum);
@@ -19,6 +21,8 @@ function plot_case(Data, case_label)
     plot(t, control_signals, 'b', 'LineWidth',2);
 
     plot(t, output_signals, 'g', 'LineWidth',2);
+    
+
     hold off
 
     xlabel('$t$ [s]','Interpreter','LaTeX'); 
