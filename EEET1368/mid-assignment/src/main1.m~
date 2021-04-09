@@ -1,6 +1,0 @@
-
-if(~isempty(out.PIResponse))
-    Data
-    figure(1);
-    plot_case(Data, case_label)
-end
