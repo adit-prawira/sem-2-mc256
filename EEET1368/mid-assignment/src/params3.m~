@@ -1,0 +1,25 @@
+clear
+clc
+close all 
+
+% Plant transfer function numerator parameters
+b1 = -1; 
+b0 = 1;
+
+% Plant transfer function numerator parameters
+a1 = 0.2; 
+a0 = 10;
+
+zeta = 0.707;
+wn = 10;
+
+% Poles of closed-loop
+lambda = 10;
+
+t3 = 2(zeta*wn + lambda);
+t2 = 4*zeta*wn*lambda + wn^2 + lambda^2;
+t1 = 2*wn*lambda(zeta*wn + wn);
+t0 = wn^2 * lambda^2;
+
+% Plant transfer function
+Gs = tf([b1 b0], [1 a1 a0]);
