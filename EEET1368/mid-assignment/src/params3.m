@@ -19,7 +19,7 @@ a0 = 10;
 % Choose zeta < 1 for underdamped condition
 zeta = 0.707;
 wn = 10;
-delta_t = 1/wn;
+delta_t = 1/5*wn;
 % Poles of closed-loop
 lambda = 10;
 
