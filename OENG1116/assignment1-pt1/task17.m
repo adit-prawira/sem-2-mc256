@@ -3,7 +3,6 @@ clear
 clc 
 close all
 
-
 sum = 0;
 N = 1000000;
 for n = 3:N
