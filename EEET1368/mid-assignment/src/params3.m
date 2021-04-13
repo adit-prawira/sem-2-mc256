@@ -1,9 +1,12 @@
+%% Created by: Aditya Prawira
+%  RMIT ID: S3859061
+
 clear
 clc
 close all 
 
 % Simulation Parameter
-time = 10;
+time = 50;
 disturbance_time = 3;
 input_amplitude = 1;
 input_disturbance_amplitude = -3;

@@ -1,3 +1,5 @@
+%% Created by: Aditya Prawira
+%  RMIT ID: S3859061
 clear
 clc
 close all
@@ -8,3 +10,6 @@ time = 20;
 
 Gs = tf(b, [1 a]);
 pi = FirstOrderPI(wn, zeta, a, b);
+
+
+

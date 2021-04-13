@@ -1,7 +1,4 @@
 classdef PID
-    %PID Summary of this class goes here
-    %   Detailed explanation goes here
-    
     properties
         Kc;
         tauI; tauD; tauF;
@@ -13,7 +10,8 @@ classdef PID
             obj.tauF = 1/I0;
             obj.tauI = (c1/c0) - obj.tauF;
             obj.Kc = obj.tauI*obj.tauF*c0;
-            obj.tauD = (c2*obj.tauI*obj.tauF - obj.Kc*obj.tauI*obj.tauF)/(obj.Kc*obj.tauI);
+            obj.tauD = (c2*obj.tauI*obj.tauF - obj.Kc*obj.tauI*obj.tauF)...
+                /(obj.Kc*obj.tauI);
             obj.P = obj.Kc;
             obj.I = obj.Kc/obj.tauI;
             obj.D = obj.Kc*obj.tauD;

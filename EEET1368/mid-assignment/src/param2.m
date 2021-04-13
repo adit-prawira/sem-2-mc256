@@ -1,3 +1,6 @@
+%% Created by: Aditya Prawira
+%  RMIT ID: S3859061
+
 clear
 clc
 close all
@@ -5,7 +8,7 @@ close all
 % Global Variable
 time = 100;
 half_time = time/2;
-lambda = 1;
+lambda = 1/2;
 a1 = 1/3;
 a2 = 1;
 b1 = -1/2;

@@ -1,7 +1,6 @@
+%% Created by: Aditya Prawira
+%  RMIT ID: S3859061
 classdef FirstOrderPI
-    %MODELPI Summary of this class goes here
-    %   Detailed explanation goes here
-    
     properties
         Kc; tauI;
         Cs; P; I;
@@ -18,8 +17,9 @@ classdef FirstOrderPI
            obj.P = obj.Kc;
            obj.I = obj.Kc/obj.tauI;
         end
-        
-        
     end
 end
+
+
+
 

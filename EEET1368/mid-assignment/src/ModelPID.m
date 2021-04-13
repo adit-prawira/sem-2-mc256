@@ -1,3 +1,6 @@
+%% Created by: Aditya Prawira
+%  RMIT ID: S3859061
+
 classdef ModelPID
     properties
        Kc;
@@ -7,7 +10,8 @@ classdef ModelPID
     
     methods
         function obj = ModelPID(a1, a2, b0, b1, damp_coeff, wn, lambda)
-            c2 = (-2*damp_coeff*wn*a1 - lambda*a1 + a1^2 + wn^2 + 2*lambda*damp_coeff*wn - (b1*lambda*wn^2/b0))/(b0 - a1*b1);
+            c2 = (-2*damp_coeff*wn*a1 - lambda*a1 + a1^2 + wn^2 + ...
+                2*lambda*damp_coeff*wn - (b1*lambda*wn^2/b0))/(b0 - a1*b1);
             gamma = (lambda*wn^2)/(b0*c2);
             I0 = -c2*b1 + 2*damp_coeff*wn + lambda - a1;
             c1 = c2*(gamma + a2);
