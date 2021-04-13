@@ -6,7 +6,7 @@ clc
 close all 
 
 % Simulation Parameter
-time = 50;
+time = 10;
 disturbance_time = 3;
 input_amplitude = 1;
 input_disturbance_amplitude = -3;
