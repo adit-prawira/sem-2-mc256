@@ -9,11 +9,10 @@ classdef ModelPID
     end
     
     methods
-        function obj = ModelPID(a1, a2, b0, b1, damp_coeff, wn, lambda)
-            c2 = (-2*damp_coeff*wn*a1 - lambda*a1 + a1^2 + wn^2 + ...
-                2*lambda*damp_coeff*wn - (b1*lambda*wn^2/b0))/(b0 - a1*b1);
-            gamma = (lambda*wn^2)/(b0*c2);
-            I0 = -c2*b1 + 2*damp_coeff*wn + lambda - a1;
+        function obj = ModelPID(a1, a2, b0, b1, lambda)
+            c2 = (-3*a1*lambda + a1^2 + 3*lambda^2 - (b1*lambda^3/b0))/(b0 - a1*b1);
+            gamma = (lambda^3)/(b0*c2);
+            I0 = -c2*b1 + 3*lambda - a1;
             c1 = c2*(gamma + a2);
             c0 = c2*a2*gamma;
             obj.tauF = 1/I0;

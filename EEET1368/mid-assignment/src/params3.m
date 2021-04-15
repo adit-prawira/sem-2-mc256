@@ -10,6 +10,7 @@ time = 10;
 disturbance_time = 3;
 input_amplitude = 1;
 input_disturbance_amplitude = -3;
+delta_t = 0.1;
 
 % Plant transfer function numerator parameters
 b1 = -1; 
@@ -19,17 +20,13 @@ b0 = 1;
 a1 = 0.2; 
 a0 = 10;
 
-% Choose zeta < 1 for underdamped condition
-zeta = 0.707;
-wn = 10;
-delta_t = 1/5*wn;
 % Poles of closed-loop
 lambda = 10;
 
-t3 = 2*(zeta*wn + lambda);
-t2 = 4*zeta*wn*lambda + wn^2 + lambda^2;
-t1 = 2*wn*lambda*(zeta*wn + wn);
-t0 = wn^2 * lambda^2;
+t3 = 4*lambda;
+t2 = 6*lambda^2;
+t1 = 4*lambda^3;
+t0 = lambda^4;
 
 % Plant transfer function
 Gs = tf([b1 b0], [1 a1 a0]);
