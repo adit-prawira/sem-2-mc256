@@ -10,7 +10,7 @@ time = 10;
 disturbance_time = 3;
 input_amplitude = 1;
 input_disturbance_amplitude = -3;
-delta_t = 0.1;
+delta_t = 0.001;
 
 % Plant transfer function numerator parameters
 b1 = -1; 

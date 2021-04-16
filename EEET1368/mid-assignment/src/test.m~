@@ -1,0 +1,11 @@
+clear 
+clc
+close all 
+sum = 0;
+for i = 0:1:100
+    if(rem(i,2) ~= 0)
+        sum = sum + i;
+        fprintf
+    end
+    
+end
