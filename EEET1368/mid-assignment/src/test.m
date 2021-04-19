@@ -3,11 +3,9 @@ clc
 close all 
 a = 3;
 r = 0.75;
-n = 100;
+n = 3;
 sum = 0;
-for i = 0:n
-    if(rem(i, 3) == 0)
-        sum = sum + i;
-    end
+for i = 0:(10-2)
+     sum = sum + i;
     
 end
