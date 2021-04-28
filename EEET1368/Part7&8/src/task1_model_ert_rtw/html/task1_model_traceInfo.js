@@ -1,0 +1,29 @@
+function RTW_rtwnameSIDMap() {
+	this.rtwnameHashMap = new Array();
+	this.sidHashMap = new Array();
+	this.rtwnameHashMap["<Root>"] = {sid: "task1_model"};
+	this.sidHashMap["task1_model"] = {rtwname: "<Root>"};
+	this.rtwnameHashMap["<Root>/Analog Input"] = {sid: "task1_model:4"};
+	this.sidHashMap["task1_model:4"] = {rtwname: "<Root>/Analog Input"};
+	this.rtwnameHashMap["<Root>/Constant"] = {sid: "task1_model:8"};
+	this.sidHashMap["task1_model:8"] = {rtwname: "<Root>/Constant"};
+	this.rtwnameHashMap["<Root>/Constant1"] = {sid: "task1_model:11"};
+	this.sidHashMap["task1_model:11"] = {rtwname: "<Root>/Constant1"};
+	this.rtwnameHashMap["<Root>/Gain"] = {sid: "task1_model:3"};
+	this.sidHashMap["task1_model:3"] = {rtwname: "<Root>/Gain"};
+	this.rtwnameHashMap["<Root>/Gain1"] = {sid: "task1_model:5"};
+	this.sidHashMap["task1_model:5"] = {rtwname: "<Root>/Gain1"};
+	this.rtwnameHashMap["<Root>/Gain2"] = {sid: "task1_model:6"};
+	this.sidHashMap["task1_model:6"] = {rtwname: "<Root>/Gain2"};
+	this.rtwnameHashMap["<Root>/Gain3"] = {sid: "task1_model:12"};
+	this.sidHashMap["task1_model:12"] = {rtwname: "<Root>/Gain3"};
+	this.rtwnameHashMap["<Root>/PWM"] = {sid: "task1_model:2"};
+	this.sidHashMap["task1_model:2"] = {rtwname: "<Root>/PWM"};
+	this.rtwnameHashMap["<Root>/Scope"] = {sid: "task1_model:9"};
+	this.sidHashMap["task1_model:9"] = {rtwname: "<Root>/Scope"};
+	this.rtwnameHashMap["<Root>/Sum"] = {sid: "task1_model:7"};
+	this.sidHashMap["task1_model:7"] = {rtwname: "<Root>/Sum"};
+	this.getSID = function(rtwname) { return this.rtwnameHashMap[rtwname];}
+	this.getRtwname = function(sid) { return this.sidHashMap[sid];}
+}
+RTW_rtwnameSIDMap.instance = new RTW_rtwnameSIDMap();

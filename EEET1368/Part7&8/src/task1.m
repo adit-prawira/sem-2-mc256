@@ -1,0 +1,2 @@
+d = ton/(ton+toff);
+
