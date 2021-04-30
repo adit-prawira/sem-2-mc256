@@ -193,16 +193,19 @@ disp('>> ')
 clear ;
 clc;
 
-x = 0:.05:2;
+x = 0:0.001:2;
 y = 1 ./ ((x-.3).^2 + .01) + 1 ./ ((x-.9).^2 + .04) - 6; 
 P=x; T=y; 
 plot(P,T,'*') 
 grid on;
 xlabel('time (s)');
 ylabel('output');
-net=fitnet(5); %Build the network with 5 neurons in the hidden layer 
+net=fitnet(10); %Build the network with 5 neurons in the hidden layer 
 net.layers{1}.transferFcn = 'logsig'; %activation function for hidden layer
 net.layers{2}.transferFcn = 'purelin'; % activation function for output layer
+net.divideParam.trainRatio = 70/100;
+net.divideParam.valRatio = 15/100;
+net.divideParam.testRatio = 15/100;
 % RandStream.setGlobalStream (RandStream ('mrg32k3a')); 
 
 net.divideFcn = 'dividerand'; %Run several times to get the best fit 
