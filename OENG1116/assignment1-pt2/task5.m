@@ -3,26 +3,35 @@ clear
 clc
 close all
 
-alpha = 30;
-drop_height = 7;
-m = 2;
-g = 9.81;
-tmax= 3; 
-
+m = 2; % mass
+g = 9.81; %gravity 
+H = 7; % drop height
+tmax= 5; % total simulation time
 t=[0:0.01:1]*tmax;
-Cd = 0.25;
-% initial parameters at B
-v0 = sqrt(2*g*drop_height); % convervation enegry of no energy loss
+Cd = 0.25; %drag coefficient
+alpha = 30; % incline angle
+
+% Simulate segment AB to find the velocity of the mass when it bounced
+xdotAB = @(t, x) ([x(2); -g-Cd*x(2)*sqrt(x(2)^2+x(4)^2)/m;...
+    x(4); -Cd*x(4)*sqrt(x(2)^2+x(4)^2)/m]);
+
+[tt,zz]=ode45(xdotAB,t,[H; 0; 0; 0]);
+
+t_bounce= interp1(zz(:,1), tt, 0);
+v_bounce = interp1(tt, zz(:,2), t_bounce);
+
+
+% Simulate segment BC with the bounce velocity
+u = v_bounce; % set the bounce velocity as the initial velocity
 z0 = 0;
 h0 = 0;
-v0z = v0*cosd(alpha);
-v0h = v0*sind(alpha);
+v0z = abs(u)*cosd(alpha);
+v0h = abs(u)*sind(alpha);
 
+xdotBC = @(t, x) ([x(2); -g*cosd(alpha)-((Cd*x(2)*sqrt(x(2)^2+x(4)^2))/m); ...
+    x(4); g*sind(alpha)-((Cd*x(4)*sqrt(x(2)^2+x(4)^2))/m)]);
 
-xdot = @(t, x) ([x(2); -g*cosd(alpha)-Cd*x(2)*sqrt(x(2)^2+x(4)^2)/m; ...
-    x(4); g*sind(alpha)-Cd*x(4)*sqrt(x(2)^2+x(4)^2)/m]);
-
-[tt,zz]=ode45(xdot,t,[z0; v0z; h0; v0h]);
+[tt,zz]=ode45(xdotBC,t,[z0; v0z; h0; v0h]);
 
 % ignore the first element because it indicates the first bounce
 H = zz(2:end, 3); 
