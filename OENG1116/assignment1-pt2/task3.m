@@ -1,3 +1,4 @@
+%% s3859061
 clear;
 clc;
 close all;
@@ -11,12 +12,18 @@ MM = m*eye(2*N + 1);
 KK =zeros(2*N + 1, 2*N + 1);
 
 for i = 1: 2*N
-    KK(i:i+1,i:i+1)= KK(i:i+1,i:i+1) + ke;
+    if(mod(i, 2) ~= 0)
+        KK(i:i+1,i:i+1)= KK(i:i+1,i:i+1) + 2*ke;
+    else
+        KK(i:i+1,i:i+1)= KK(i:i+1,i:i+1) + ke;
+    end
 end
-
 
 %constraining wall
 KK(1,:)=[]; 
 KK(:,1)=[];
 MM(1,:)=[]; 
 MM(:,1)=[]; 
+
+[U, D] = eig(KK, MM);
+fprintf("omega_8 = %7.4f [rad/s]\n", sqrt(D(8,8)));

@@ -17,7 +17,7 @@ xdotAB = @(t, x) ([x(2); -g ; x(4); 0]);
 
 t_bounce= interp1(zz(:,1), tt, 0);
 v_bounce = interp1(tt, zz(:,2), t_bounce);
-
+%v_bounce = sqrt(2*g*H);
 
 % Simulate segment BC with the bounce velocity
 u = v_bounce; % set the bounce velocity as the initial velocity
