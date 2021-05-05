@@ -10,7 +10,6 @@ classdef FirstOrderPI
         function obj = FirstOrderPI(wn, zeta, a, b)
            c1 = (2*zeta*wn - a)/b;
            c0 = wn^2 / b;
-           
            obj.Kc = c1;
            obj.tauI = c1/c0;
            obj.Cs = tf([c1 c0], [1 0]);
