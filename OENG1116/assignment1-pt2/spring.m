@@ -1,6 +1,3 @@
-%% s3859061
-%% s3653948@student.rmit.edu.au
-
 clear;
 clc;
 close all;
