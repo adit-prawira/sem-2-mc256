@@ -6,7 +6,7 @@ close all
 m = 2; % mass
 g = 9.81; %gravity 
 H = 7; % drop height
-tmax= 5; % total simulation time
+tmax= 3; % total simulation time
 t=[0:0.01:1]*tmax;
 alpha = 30; % incline angle
 

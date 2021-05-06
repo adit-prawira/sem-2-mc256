@@ -3,12 +3,12 @@ clear
 clc
 close all
 
-m = 8; % mass
+m = 2; % mass
 g = 9.81; %gravity 
-H = 20; % drop height
-tmax= 5; % total simulation time
+H = 7; % drop height
+tmax= 2; % total simulation time
 t=[0:0.01:1]*tmax;
-Cd = 0.5; %drag coefficient
+Cd = 0.25; %drag coefficient
 alpha = 30; % incline angle
 
 % Simulate segment AB to find the velocity of the mass when it bounced
