@@ -40,7 +40,7 @@ Z = zz(2:end, 1);
 plot(H, Z,'LineWidth',3,'Color',[0 0.5 1]);
 hold on;
 
-plot(interp1(Z, H, 0), 0, 'ro', 'LineWidth', 2);
+plot(interp1(Z, H, 0), 0, 'ro', 'LineWidth', 3);
 grid on; 
 axis equal; 
 xlabel('$h$ [m]','Interpreter','LaTeX'); 

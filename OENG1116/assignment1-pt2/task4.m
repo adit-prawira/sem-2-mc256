@@ -42,7 +42,7 @@ grid on;
 axis equal; 
 xlabel('$h$ [m]','Interpreter','LaTeX'); 
 ylabel('$z$ [m]','Interpreter','LaTeX');
-title('\bf Projectile (With Air Drag)'); 
+title('\bf Projectile (Without Air Drag)'); 
 set(gca, 'FontSize',18); 
 
 % print flip the values of z and h because we want to know the

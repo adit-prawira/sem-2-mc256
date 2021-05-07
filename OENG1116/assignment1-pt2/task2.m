@@ -8,6 +8,7 @@ tmax = 2*24;
 t = [0 tmax];
 X0 = [0;0;0;0];
 xd = @(t, x) r*x + D;
+
 [tt,xx] = ode45(xd, t,X0);
 
 plot(tt,xx, 'LineWidth', 2); 

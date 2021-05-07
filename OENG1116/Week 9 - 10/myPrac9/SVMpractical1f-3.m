@@ -1,4 +1,4 @@
-%%
+
 clear; close all; clc;
 disp('>> ')
 disp('>> ')
@@ -70,6 +70,7 @@ RMSE_training=sqrt(sum((yfit-t).^2)/numel(t)); % Calculate RMSE for data
 %%
 clear;
 clc;
+close all
 disp('>> ')
 disp('>> ')
 disp('>> ========= Example of Regression-2===========')% SVR2.xlsx has been used .
@@ -78,12 +79,12 @@ disp('>> ')
 disp('>> ')
 rng(1);
 Filename='SVR2.xlsx';
-Sheetread='x';
-Input1='A1:A94';
+Sheetread='Sheet1';
+Input1='A1:A89';
 Sheetread1='t';
 output1='A1:A94';
 Input=xlsread(Filename,Sheetread,Input1); %Read Microsoft Excel 
-Target=xlsread(Filename,Sheetread1,output1 ); 
+Target=xlsread(Filename,Sheetread1,output1); 
 x=Input;
 t=Target;
 mdl=fitrsvm(x,t,'Standardize',true); %standardize the data and use linear kernel to develope and model the data
@@ -136,7 +137,7 @@ disp('>> ')
 disp('>> ')
 rng(1);
 Filename='SVR4.xlsx';
-Sheetread='Sheet1';
+Sheetread='sheet1';
 Input1='A1:H72';
 output1='I1:I72';
 Input=xlsread(Filename,Sheetread,Input1); %Read Microsoft Excel 

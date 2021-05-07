@@ -6,7 +6,7 @@ close all;
 n = 40;
 m = 7;
 k = 7000;
-
+ 
 N = 2*n + 1;
 
 ke = [k -k; -k k]; % stiffness matrix

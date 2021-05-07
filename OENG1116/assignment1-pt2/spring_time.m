@@ -15,7 +15,6 @@ for n=1:2*N-1
     K(n,2*N-n+1)=-k;
     K(2*N-n+1,n)=-k;
     K(2*N-n+1,2*N-n+1)=k;
-    fprintf("%d\n", 2*N-n+1);
 end
 
 for n=1:2*N-1
