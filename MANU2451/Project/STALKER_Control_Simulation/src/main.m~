@@ -59,7 +59,7 @@ MAX_TIME = 999;
 x0 = 2;
 y0 = 1;
 motor_speed = 18.8496;
-SAFE_RANGE = 0.5;
+SAFE_RANGE = 0.2;
 initpost = [x0; y0; angle_r];        % Initial post (x y theta)
 tVec = 0:sampleTime:double(MAX_TIME);         % Time array/vector
 
@@ -97,44 +97,42 @@ while start
 
             if(val == UP)
                 ref = move_forward(robot, tVec, motor_speed);
-                i =danger_range(ranges, SAFE_RANGE, i, "forward");
+                i =danger_range(ranges, SAFE_RANGE, i);
             end
             if(val == DOWN)
                 ref = move_backward(robot, tVec, motor_speed);
-                i = danger_range(ranges, SAFE_RANGE, i, "backward");
+                i = danger_range(ranges, SAFE_RANGE, i);
             end
             if(val == RIGHT)
                 ref = move_right(robot, tVec, motor_speed);
-                i = danger_range(ranges, SAFE_RANGE, i, "right");
+                i = danger_range(ranges, SAFE_RANGE, i);
             end
             if(val == LEFT)
                 ref = move_left(robot, tVec, motor_speed);
-                i = danger_range(ranges, SAFE_RANGE, i, "left");
+                i = danger_range(ranges, SAFE_RANGE, i);
             end
             
             if(val == CLOCKWISE)
                 ref = rotate_clockwise(robot, tVec, motor_speed);
                 i = i + 1;
                 cellRanges = num2cell(ranges);
-                [range1, range2, range3, range4, range5, range6, ...
-                    range7, range8, range9] = cellRanges{:};
+                [range1, range2, range3, range4, range5, range6, range7, range8, range9] = ...
+                    cellRanges{:};
                 fprintf("range1 = %f, range2 = %f, range3 = %f, "...
                     +"range4 = %f, range5 = %f, range6 = %f, "...
-                    +"range7 = %f, range8 = %f, range9 = %f\n",...
-                    range1, range2, range3, range4, ...
-                    range5, range6, range7, range8, range9);
+                    +"range7 = %f\n",range1, range2, range3, range4, ...
+                    range5, range6, range7);
             end
             if(val == ANTI_CLOCKWISE)
                 ref = rotate_anticlockwise(robot, tVec, motor_speed);
                 i = i + 1;
                 cellRanges = num2cell(ranges);
                 [range1, range2, range3, range4, range5, range6, ...
-                    range7, range8, range9] = cellRanges{:};
+                    range7] = cellRanges{:};
                 fprintf("range1 = %f, range2 = %f, range3 = %f, "...
                     +"range4 = %f, range5 = %f, range6 = %f, "...
-                    +"range7 = %f, range8 = %f, range9 = %f\n",...
-                    range1, range2, range3, range4, ...
-                    range5, range6, range7, range8, range9);
+                    +"range7 = %f\n",range1, range2, range3, range4, ...
+                    range5, range6, range7);
             end
         end
         

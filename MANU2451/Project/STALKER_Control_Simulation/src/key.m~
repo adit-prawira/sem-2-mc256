@@ -1,0 +1,17 @@
+clear
+clc
+close all
+fprintf('\nDo you want to start tgh: ') ;
+val = getkey;
+start = 0;
+if(val == 13)
+    start = 1;
+end
+
+while start
+    val = getkey;
+    if(val == 49)
+        start = 0;
+    end
+    fprintf("%c\n", char(val));2
+end
