@@ -50,7 +50,7 @@ viz = Visualizer2D;
 viz.mapName = 'map';
 viz.showTrajectory = false;
 attachLidarSensor(viz,lidar);
-
+set(0,'DefaultFigureWindowStyle','docked') 
 %% Simulation parameters
 sampleTime = 0.1;              % Sample time [s]
 angle_d = 90;

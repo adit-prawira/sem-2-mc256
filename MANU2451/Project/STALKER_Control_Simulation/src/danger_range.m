@@ -1,6 +1,5 @@
 function index = danger_range(ranges, safe_range, current_i, direction)
     cellRanges = num2cell(ranges);
-    fprintf("length = %d", length(ranges));
     [range1, range2, range3, range4, range5, range6, range7, range8, range9] = ...
         cellRanges{:};
     isDanger = is_danger(range1, range2, range3, range4, range5, ...
