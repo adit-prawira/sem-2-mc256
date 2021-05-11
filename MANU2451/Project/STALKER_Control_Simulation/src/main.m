@@ -1,7 +1,7 @@
 %% STALKER ROBOT SIMULATIONS
-
 clear
 clc
+
 %% KEY BINDING CONSTANTS
 UP = 82;
 DOWN = 81; 
@@ -10,7 +10,7 @@ LEFT = 80;
 ESC = 41;
 CLOCKWISE = 7; % d key
 ANTI_CLOCKWISE = 4; % a key
-
+ 
 %% SIMULATION ENVIRONMENT SETUP INTERFACE
 fprintf("\nDo you want to start the simulation?\nPress Enter to "+...
     "process or any key to cancel\n") ;
@@ -51,6 +51,7 @@ viz.mapName = 'map';
 viz.showTrajectory = false;
 attachLidarSensor(viz,lidar);
 set(0,'DefaultFigureWindowStyle','docked') 
+
 %% Simulation parameters
 sampleTime = 0.1;              % Sample time [s]
 angle_d = 90;
