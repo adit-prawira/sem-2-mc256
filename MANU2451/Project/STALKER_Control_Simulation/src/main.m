@@ -8,8 +8,8 @@ DOWN = 81;
 RIGHT = 79;
 LEFT = 80;
 ESC = 41;
-CLOCKWISE = 7; % d key
-ANTI_CLOCKWISE = 4; % a key
+KEY_D = 7; % d key
+KEY_A = 4; % a key
  
 %% SIMULATION ENVIRONMENT SETUP INTERFACE
 fprintf("\nDo you want to start the simulation?\nPress Enter to "+...
@@ -113,7 +113,7 @@ while start
                 i = danger_range(ranges, SAFE_RANGE, i, "left");
             end
             
-            if(val == CLOCKWISE)
+            if(val == KEY_D)
                 ref = rotate_clockwise(robot, tVec, motor_speed);
                 i = i + 1;
                 cellRanges = num2cell(ranges);
@@ -125,7 +125,8 @@ while start
                     range1, range2, range3, range4, ...
                     range5, range6, range7, range8, range9);
             end
-            if(val == ANTI_CLOCKWISE)
+            
+            if(val == KEY_A)
                 ref = rotate_anticlockwise(robot, tVec, motor_speed);
                 i = i + 1;
                 cellRanges = num2cell(ranges);
