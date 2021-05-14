@@ -24,6 +24,7 @@ for r = 1:N
         sin(((2*r - 1)*pi*X)/(2*L)) .* ...
         cos(((2*r - 1)*pi*c*T)/(2*L))); 
 end
+
 U = U*(8*e*L)/pi^2;
 
 %% PLOT SETUP

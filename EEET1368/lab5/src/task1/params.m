@@ -1,7 +1,6 @@
 clear
 clc
 close all
-set(0,'DefaultFigureWindowStyle','docked')
 
 % Data of temperatures from Part 1
 T0 = 27; % initial read of the resistor's temperature
@@ -41,3 +40,5 @@ tauI = pi.tauI;
 deltat = sample_time;
 Umin = 0;
 Umax = 1;
+
+

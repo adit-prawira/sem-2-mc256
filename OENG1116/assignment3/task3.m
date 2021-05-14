@@ -35,6 +35,8 @@ me = [156 22*h 54 -13*h;...
 me = ((m*h)/420).*me;
 MM = zeros(dof, dof);
 
+x0 = zeros(2*dof, 1);
+
 %%
 for i=1:Nfe
     idx = [1:4] + (i-1)*2; 
@@ -43,29 +45,9 @@ for i=1:Nfe
 end
 
 MM(dof,:)=[]; KK(dof,:)=[];MM(:,dof)=[]; KK(:,dof)=[];
+
 MM(1,:)=[]; KK(1,:)=[];MM(:,1)=[]; KK(:,1)=[];
+
 [U, D] = eig(KK, MM);
 w1_exact = pi*sqrt(E/(rho * L^2));
 
-for i = 1 : Nfe + 1
-    w_exact = (i-1)*w1_exact;
-    w_FEM = sqrt(abs(diag(D(i,i))));
-    fprintf("w_%d = %7.2f rad/s, ", i, w_FEM);
-    fprintf("w_exact_%d = %7.2f rad/s \n", i, w_exact);
-    % plot ith exact frequency
-    plot(i, w_exact, 'ob', 'MarkerSize', 8);
-    %plot ith FEM frequency
-    plot(i, w_FEM, 'xr', 'MarkerSize', 8); 
-end
-% 
-% str=sprintf('FEM frequencies (Nfe=%i)',Nfe); 
-% legend('exact frequencies',str,'Location','NorthWest'); 
-% xlabel('Freq. Number $r$','Interpreter','LaTeX'); 
-% ylabel('$\omega_r$ [rad/s]','Interpreter','LaTeX'); 
-% title('\bf FREE-FREE ROD');
-% xlim([1 Nfe+1]);
-% set(gca,'FontSize',16);
-% set(gcf,'Position', [65 14 1107 680]);
-% if Nfe<10
-%  set(gca,'XTick',[1:Nfe+1]); 
-% end
