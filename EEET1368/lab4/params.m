@@ -21,7 +21,7 @@ zeta = 0.707;
 wn = 3/tau;
 
 % PARAMETERS OF REFERENCE SIGNAL
-step_amplitude = 50; % chose between 40-70 degree celcius
+step_amplitude = 67; % chose between 40-70 degree celcius
 sample_time = 1/5*wn;
 
 % PARAMETERS OF STAURATION BLOCK
