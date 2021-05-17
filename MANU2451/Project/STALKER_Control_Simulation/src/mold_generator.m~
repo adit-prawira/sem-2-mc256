@@ -1,0 +1,24 @@
+function molds = mold_generator(world)
+    molds = [];
+    type = ["x" "y"];
+    map = world.map;
+    
+    for i = 1: 10
+        indexType = randperm(2, 1);
+        if(type(indexType) == "x")
+            index = randperm(2,1);
+            x = map.XWorldLimits(index);
+            a = map.YWorldLimits(1);
+            b = map.YWorldLimits(2);
+            y = (b-a).*rand(1000,1) + a;
+            molds(i,:) = [x, y, 1];
+        else
+            index = randperm(2,1);
+            y = map.YWorldLimits(index);
+            a = map.XWorldLimits(1);
+            b = map.XWorldLimits(2);
+            x = (b-a).*rand(1000,1) + a;
+            molds(i,:) = [x, y, 1];
+        end
+    end 
+end

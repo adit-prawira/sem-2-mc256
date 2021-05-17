@@ -4,10 +4,14 @@ function index = danger_range(ranges, safe_range, current_i, direction)
         cellRanges{:};
     isDanger = is_danger(range1, range2, range3, range4, range5, ...
         range6, range7,  range8, range9, safe_range);
-    if(direction == "left")
+    if(direction == "l")
         mainRange = range(9);
-    elseif(direction == "right")
+    elseif(direction == "r")
         mainRange = range(1);
+    elseif(direction == "fr")
+        mainRange = range(3);
+    elseif(direction == "fl")
+        mainRange = range(7);
     else
         mainRange = range(5);
     end
@@ -19,11 +23,11 @@ function index = danger_range(ranges, safe_range, current_i, direction)
     else
         index = current_i + 1;
     end
-    fprintf("range1 = %f, range2 = %f, range3 = %f, "...
-                    +"range4 = %f, range5 = %f, range6 = %f, "...
-                    +"range7 = %f, range8 = %f, range9 = %f\n",...
-                    range1, range2, range3, range4, ...
-                    range5, range6, range7, range8, range9);
+%     fprintf("range1 = %f, range2 = %f, range3 = %f, "...
+%                     +"range4 = %f, range5 = %f, range6 = %f, "...
+%                     +"range7 = %f, range8 = %f, range9 = %f\n",...
+%                     range1, range2, range3, range4, ...
+%                     range5, range6, range7, range8, range9);
 end
 
 function isDanger = is_danger(range1, range2, range3, range4, range5, ...
