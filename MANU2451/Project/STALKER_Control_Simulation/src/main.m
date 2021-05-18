@@ -2,6 +2,7 @@
 clear
 clc
 set(0,'DefaultFigureWindowStyle','docked') 
+
 %% KEY BINDING CONSTANTS
 FORWARD = 82;
 BACKWARD = 81; 
@@ -33,6 +34,11 @@ if(val == 13)
        
     else
         load('complexMap.mat');
+        world = load('complexMap.mat');
+        molds = mold_generator(world);
+        objects = [molds; ...
+           8, 11, 2; ...
+           8, 4, 3];
         
     end
     fprintf("\nStatus: Simulation has started...\n");
@@ -89,8 +95,8 @@ post(:,1) = initpost;
 r = rateControl(1/sampleTime);
 iter = 2;
 i = iter;
+
 while start
-    %fprintf("n_iteration = %d\n", i);
     % Convert the reference speeds to world coordinates
     vel = bodyToWorld(ref(:,i-1),post(:,i-1));
 
@@ -104,9 +110,7 @@ while start
     ranges = lidar(post(:,i));
 
     viz(post(:,i),ranges,objects);
-%     if (mod(i, 10) == 0)
-%         
-%     end
+    
     if ~isempty(detections)
         nearestLabel = detections(1,3);
         fprintf("val1 = %f, val2 = %f, val3 = %f\n", ...
@@ -150,22 +154,12 @@ while start
                 cellRanges = num2cell(ranges);
                 [range1, ransge2, range3, range4, range5, range6, ...
                     range7, range8, range9] = cellRanges{:};
-%                 fprintf("range1 = %f, range2 = %f, range3 = %f, "...
-%                     +"range4 = %f, range5 = %f, range6 = %f, "...
-%                     +"range7 = %f, range8 = %f, range9 = %f\n",...
-%                     range1, range2, range3, range4, ...
-%                     range5, range6, range7, range8, range9);
             elseif(val == KEY_A)
                 ref = rotate_anticlockwise(robot, tVec, motor_speed);
                 i = i + 1;
                 cellRanges = num2cell(ranges);
                 [range1, range2, range3, range4, range5, range6, ...
                     range7, range8, range9] = cellRanges{:};
-%                 fprintf("range1 = %f, range2 = %f, range3 = %f, "...
-%                     +"range4 = %f, range5 = %f, range6 = %f, "...
-%                     +"range7 = %f, range8 = %f, range9 = %f\n",...
-%                     range1, range2, range3, range4, ...
-%                     range5, range6, range7, range8, range9);
             else
                 sprintf("Command unused\n");
             end
@@ -183,11 +177,9 @@ while start
                     ref = move_forward_right(robot, tVec, motor_speed);
                     i = danger_range(ranges, SAFE_RANGE, i, "fr");
                 elseif(key1 == RIGHT && key2 == BACKWARD)
-                    sprintf("BITCH\n");
                     ref = move_backward_right(robot, tVec, motor_speed);
                     i = danger_range(ranges, SAFE_RANGE, i, "br");
                 elseif(key1 == LEFT && key2 == BACKWARD)
-                    sprintf("BITCH\n");
                     ref = move_backward_left(robot, tVec, motor_speed);
                     i = danger_range(ranges, SAFE_RANGE, i, "bl");
                 end 

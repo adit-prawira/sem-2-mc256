@@ -3,8 +3,6 @@ function molds = mold_generator(world)
     type = ["x" "y"];
     map = world.map;
     
-    
-
     for i = 1: 10
         indexType = randperm(2, 1);
         if(type(indexType) == "x")
