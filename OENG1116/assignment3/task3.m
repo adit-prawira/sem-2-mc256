@@ -23,7 +23,8 @@ ke = [12 6*h -12 6*h;...
     6*h 4*h^2 -6*h 2*h^2;
     -12 -6*h 12 -6*h;
     6*h 2*h^2 -6*h 4*h^2];
-ke = ((E*I)/H^3).* ke;
+
+ke = ((E*I)/h^3).* ke;
 
 KK = zeros(dof, dof);
 
@@ -44,10 +45,14 @@ for i=1:Nfe
     MM(idx,idx)=MM(idx,idx)+me;
 end
 
-MM(dof,:)=[]; KK(dof,:)=[];MM(:,dof)=[]; KK(:,dof)=[];
-
+MM(5,:)=[]; KK(5,:)=[];MM(:,5)=[]; KK(:,5)=[];
 MM(1,:)=[]; KK(1,:)=[];MM(:,1)=[]; KK(:,1)=[];
 
-[U, D] = eig(KK, MM);
-w1_exact = pi*sqrt(E/(rho * L^2));
+
+F = [1000; 0; 0; 1000];
+
+KI = inv(KK);
+
+D = (KI*F);
+
 
