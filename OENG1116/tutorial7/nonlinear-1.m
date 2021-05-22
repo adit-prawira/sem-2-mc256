@@ -254,7 +254,7 @@ disp('>> ')
 disp('>> ')
 rng(1);
 Filename='regression4.xlsx';
-Sheetread='Sheet1';
+Sheetread='sheet1';
 Input1='A1:C72';
 output1='D1:D72';
 Input=xlsread(Filename,Sheetread,Input1); %Read Microsoft Excel 

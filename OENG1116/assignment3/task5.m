@@ -48,6 +48,31 @@ M(:,1)=[];
 K(:,1)=[];
 
 [U, D] = eig(K, M);
-w_all=diag(sqrt(abs(D)));
-fprintf("w_%d = %4.0f rad/s \n", 1, w_all(1));
+
+NumFE = N1 + N2;
+h = h1 + h2;
+
+tmax = 0.005;
+x=[0:0.01:1]*h;
+e = 0.1;
+
+H1x = 1-x/h; 
+H2x = x/h;
+
+invMxK=M\K; 
+
+% x0=[e; 0];
+
+x0=[e*[1:NumFE]/NumFE, zeros(1,NumFE)]';
+FEM_xdot_anon = @(t,x) [eye(NumFE)*x(NumFE+1:2*NumFE); -invMxK*x(1:NumFE)]; 
+
+[tt,xx] = ode45(FEM_xdot_anon,[0 tmax],x0);
+figure; 
+plot(tt,xx(:,NumFE),'b','LineWidth',2); 
+grid on;
+xl=xlabel('$t$  [s]'); 
+yl=ylabel('$u_2(t)$   [m]');
+str=sprintf('$u_2$ Time History (Axial displacement of tip of fixed rod, modelled with %i FE)',NumFE); ti=title(str,'FontWeight','bold'); set([xl,yl,ti],'Interpreter','LaTeX');
+set(gca,'FontSize',16);
+set(gcf,'Position',[30 60  1200  700])
 
