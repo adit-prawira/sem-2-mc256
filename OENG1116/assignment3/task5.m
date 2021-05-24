@@ -1,78 +1,91 @@
-%% s3859061
+%%s3838184
 clear
 close all
 clc
 
-% ROD 1
-L1 = 1.2;
-a1 = 0.08*0.08;
-rho1 = 4540;
-E1 = 110*10^9;
-N1 = 24;
-h1 = L1/N1;
-m1 = a1*1*rho1; % mass of rod 1
-ke1 = ((E1*a1)/h1)*[1 -1; -1 1];
-me1 = ((m1*h1)/6)*[2 1; 1 2];
+global M_Global K_Global
+% data for rod 1
+L1 = 1.2;  %length
+a1 = 0.08; %side length
+rho1 = 4540; %density
+E1 = 110e9; %elastic modulus
+ne1 = 24; %number of elements
+le1 = L1/ne1; %element length
+A1 = a1*a1; %CSA
 
-% ROD 2
-L2 = 0.8;
-a2 = 0.07*0.07;
-rho2 = 2700;
-E2 = 69*10^9;
-N2 = 16;
-h2 = L2/N2;
-m2 = a2*1*rho2; % mass of rod 2
-ke2 = ((E2*a2)/h2)*[1 -1; -1 1];
-me2 = ((m2*h2)/6)*[2 1; 1 2];
+%elemental mass matrix
+m1 = rho1*A1; 
+me1 = ((m1*le1)/6)*[2 1; 1 2];
 
-M=zeros([1,1]*(N1+N2+1));
-K=zeros([1,1]*(N1+N2+1));
-v0 = 15;
+%elemental stiffness matrix
+ke1 = ((E1*A1)/le1)*[1 -1; -1 1];
 
-for i = 1 : N1
-    idx = [1 2] + (i - 1);
-    M(idx, idx) = M(idx, idx) + me1;
-    K(idx, idx) = K(idx, idx) + ke1;
+% data for rod 2
+L2 = 0.8;  %length
+a2 = 0.07; %side length
+rho2 = 2700; %density
+E2 = 69e9; %elastic modulus
+ne2 = 16; %number of elements
+le2 = L2/ne2; %element length
+A2 = a2*a2; %CSA
+
+%elemental mass matrix
+m2 = rho2*A2; 
+me2 = ((m2*le2)/6)*[2 1; 1 2];
+
+%elemental stiffness matrix
+ke2 = ((E2*A2)/le2)*[1 -1; -1 1];
+
+%Global system matrices
+M_Global = zeros((ne1+ne2+1),(ne1+ne2+1)); 
+K_Global = zeros((ne1+ne2+1),(ne1+ne2+1));
+
+for i = 1 : ne1
+    index = [1 2] + (i - 1);
+    M_Global(index, index) = K_Global(index, index) + me1;
+    K_Global(index, index) = K_Global(index, index) + ke1;
 end
 
-for i = N1 + 1 : N1 + N2
-    idx = [1 2] + (i - 1);
-    M(idx, idx) = M(idx, idx) + me2;
-    K(idx, idx) = K(idx, idx) + ke2;
-    
+for i = ne1 + 1 : ne1 + ne2
+    index = [1 2] + (i - 1);
+    M_Global(index, index) = M_Global(index, index) + me2;
+    K_Global(index, index) = K_Global(index, index) + ke2;    
 end
 
-M(1,:)=[]; 
-K(1,:)=[];
-M(:,1)=[]; 
-K(:,1)=[];
+V = 15; %velocity in m/s
+%Initial conditions
+x0 = zeros(1,length(M_Global));
+v0 = [zeros(1,ne1) -V/2 -V*ones(1,ne2)];
 
-[U, D] = eig(K, M);
+%Boundary Conditions
+M_Global(1,:)=[]; M_Global(:,1)=[]; 
+K_Global(1,:)=[]; K_Global(:,1)=[];
 
-NumFE = N1 + N2;
-h = h1 + h2;
+x0(1) = []; v0(1) = [];
 
-tmax = 0.005;
-x=[0:0.01:1]*h;
-e = 0.1;
+IC = [x0 v0]'; %Initial condition
+TIME = 0:0.00005:0.005;
 
-H1x = 1-x/h; 
-H2x = x/h;
+[t,x1] = ode45(@(t,x) task5_fun(t,x),TIME,IC);
+disp = x1(:,1:length(M_Global)); 
+vel = x1(:,length(M_Global)+1:2*length(M_Global));
 
-invMxK=M\K; 
+xdir = [0:le1:L1 L1+le2:le2:L1+L2];
+figure; grid on; rotate3d on;
+[TT,XX]=meshgrid(TIME,xdir);
+surf(TT,XX,disp');
+colormap jet; lighting phong; shading interp;
+xlabel('t (s)'); ylabel('x (m)');
+zlabel('u(x,t) (m)');
+figure
+plot(TIME, disp(:,end))
+xlabel('t (s)'); ylabel('diplacement (m)')
 
-% x0=[e; 0];
+fprintf("uQ = %fmm\n", interp1(disp(:,end), TIME, 0.001)*1000);
 
-x0=[e*[1:NumFE]/NumFE, zeros(1,NumFE)]';
-FEM_xdot_anon = @(t,x) [eye(NumFE)*x(NumFE+1:2*NumFE); -invMxK*x(1:NumFE)]; 
 
-[tt,xx] = ode45(FEM_xdot_anon,[0 tmax],x0);
-figure; 
-plot(tt,xx(:,NumFE),'b','LineWidth',2); 
-grid on;
-xl=xlabel('$t$  [s]'); 
-yl=ylabel('$u_2(t)$   [m]');
-str=sprintf('$u_2$ Time History (Axial displacement of tip of fixed rod, modelled with %i FE)',NumFE); ti=title(str,'FontWeight','bold'); set([xl,yl,ti],'Interpreter','LaTeX');
-set(gca,'FontSize',16);
-set(gcf,'Position',[30 60  1200  700])
-
+function X_dt = task5_fun(t,x)
+    global M_Global K_Global
+    X_dt = [x(length(M_Global)+1:2*length(M_Global),1);...
+            M_Global\(- K_Global*x(1:length(K_Global),1))];   
+end
