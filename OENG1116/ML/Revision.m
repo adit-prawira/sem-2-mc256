@@ -21,21 +21,23 @@ Filename='DataEngine.xlsx';%prediction of Torque based on fuel rate and speed
 Sheetread='Training';
 Input1='A2:B1195';
 output1='C2:C1195';
+
 Input=xlsread(Filename,Sheetread,Input1); 
 Target=xlsread(Filename,Sheetread,output1 );
-x=Input;
-t=Target;
+
+x=Input';
+t=Target';
+
 Sheetread1='Newdata';
 Input2='A2:B4';
 Target2 ='C2:C4';
+
 Inputnew=xlsread(Filename,Sheetread1,Input2);
 Targetnew=xlsread(Filename,Sheetread1,Target2 );
-xnew=Inputnew; 
-tnew=Targetnew;
-x=Input';
-t=Target';
+
 xnew=Inputnew'; 
 tnew=Targetnew';
+
 trainFcn = 'trainlm'; hiddenLayerSize = 10;
 %net.layers{1}.transferFcn = 'logsig';  %for hidden layer 
 net = fitnet(hiddenLayerSize,trainFcn);
@@ -48,7 +50,7 @@ net.divideParam.valRatio = 20/100;
 net.divideParam.testRatio = 10/100;
 net.performFcn = 'mse';  
 [net,tr] = train(net,x,t);
-view(net);
+% view(net);
 y = net(x);
 e = gsubtract(t,y);
 performance = perform(net,t,y);
@@ -57,9 +59,9 @@ figure;plottrainstate(tr)
 trainTargets = t .* tr.trainMask{1}; % Apply a mask (0's and 1's to select the proper targets) to select train data 
 valTargets = t .* tr.valMask{1};  %Select validation data
 testTargets = t .* tr.testMask{1};  %select test data
-trainPerformance = perform(net,trainTargets,y)  % training data performance 
-valPerformance = perform(net,valTargets,y)      % validation data performance 
-testPerformance = perform(net,testTargets,y)    %test data performance 
+trainPerformance = perform(net,trainTargets,y);  % training data performance 
+valPerformance = perform(net,valTargets,y);      % validation data performance 
+testPerformance = perform(net,testTargets,y);    %test data performance 
 Ynew=net(xnew); %Optionally perform additional tests
 table( tnew( 1: 3)',Ynew( 1: 3)', 'VariableNames',... 
 {'Actual_Torque',' Predicted_Torque'}) 

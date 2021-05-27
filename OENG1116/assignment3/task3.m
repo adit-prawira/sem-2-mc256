@@ -15,7 +15,7 @@ M  = 1000; % magnitude of each torque (Nm)
 
 I=W*H^3/12;
 h = L/Nfe;
-m = 7500*W*H;
+m = rho*W*H;
 dof = (Nfe + 1)*2;
 
 %% Stifness matrix
@@ -49,7 +49,7 @@ MM(5,:)=[]; KK(5,:)=[];MM(:,5)=[]; KK(:,5)=[];
 MM(1,:)=[]; KK(1,:)=[];MM(:,1)=[]; KK(:,1)=[];
 
 
-F = [1000; 0; 1000; 0];
+F = [1000; 0; 0; 1000];
 
 D = (KK\F)*180/pi;
 
