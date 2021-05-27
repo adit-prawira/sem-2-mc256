@@ -25,7 +25,7 @@ newDataOutput = xlsread(fileName, newDataSheetName, outputNewDataRange);
 xNew = newDataInput; % do not transpose data
 yNew = newDataOutput; % do not transpose data
 
-% Regression SVM
+%% Regression SVM
 model = fitrsvm(x, y, 'KernelFunction', 'gaussian', 'Standardize', true);
 
 % return 1 if program reach an answer, 0 otherwise
