@@ -12,9 +12,9 @@ B=[11,9;15,12;12,6;16,8;7,14;12,15;9,12;8,9;8,9];
 
 scatter(A(:,1), A(:,2), 'MarkerEdgeColor',[0 0 1]')
 
+% Rendering setup for scaterrin the given sets of data
 hold on
 plot(A(k1,1),A(k1,2),'b')
-
 scatter(B(:,1), B(:,2), 'MarkerEdgeColor',[1 0 0]')
 plot(B(k2,1),B(k2,2),'r')
 
@@ -35,6 +35,8 @@ classes = [-1;-1;1];
 N = numel(classes);
 SUPPORT_VECTORS = [s1 s2 s3];
 COEFFICIENTS = zeros(N,N);
+
+% Rendering setup for chosen support vectors
 hold on
 line(SUPPORT_VECTORS(1,1:N-1),SUPPORT_VECTORS(2,1:N-1),'LineStyle','none','LineWidth',2,...
         'Marker','o','MarkerSize',22,...
@@ -76,13 +78,16 @@ plotAxises = axis;
 x = plotAxises(1):1:plotAxises(2);
 
 a = -1*(w(1)/w(2));
+
 c = -1*(b/w(2));
 cHigh = (1-b)/w(2);
 cLow = (-1-b)/w(2);
-y = a*x + c;
-yHigh = a*x + cHigh;
-yLow = a*x + cLow;
 
+y = a*x + c; % Hyperplane equation
+yHigh = a*x + cHigh; % Higher margin equation
+yLow = a*x + cLow; % Lower margin equation
+
+% Rendering setup for Hyperplane, higher, and lower margin equations
 hold on 
 plot(x, y, 'k', 'LineWidth', 3);
 plot(x, yHigh, 'r', 'LineStyle', '--', 'LineWidth', 3);
@@ -91,7 +96,7 @@ titleStr=sprintf(...
     "SVM Calsulated Eq. of the Hyperplane: $y = (%g) x + (%g)$, Or (%g)x+(%g)y+(%g) = 0",a,c,...
     w(1), w(2), b);
 set([xl,yl,title(titleStr)],'Interpreter','LaTeX');
-
 hold off
+
 fprintf("w=[%.4f;%.4f;%.4f]\n", wTilde(1), wTilde(2), wTilde(3))
 fprintf("m=%.4f\n", m)

@@ -11,8 +11,8 @@ alpha2 = 3;
 a = 1;
 b = 0.1;
 
-umin = -9;
-umax = 41.9*0.85;
+umin = -999;
+umax = 999;
 
 Tsim = 20;
 delay = 0.01;
